@@ -47,8 +47,14 @@ for (const f of await walk(path.join(root, 'src'))) {
 let css = compiler.build([...candidates]);
 css = (await build({ stdin: { contents: css, loader: 'css' }, minify: true, write: false })).outputFiles[0].text;
 
-// 3. HTML
+// 3. HTML — icons inlined as data URIs so the single file needs nothing else.
+const pub = (f) => readFile(path.join(root, 'public', f));
+const svgIcon = `data:image/svg+xml;base64,${(await pub('favicon.svg')).toString('base64')}`;
+const pngIcon = `data:image/png;base64,${(await pub('favicon-32.png')).toString('base64')}`;
+const touchIcon = `data:image/png;base64,${(await pub('apple-touch-icon.png')).toString('base64')}`;
+const icons = `<link rel="icon" type="image/svg+xml" href="${svgIcon}"><link rel="icon" type="image/png" sizes="32x32" href="${pngIcon}"><link rel="apple-touch-icon" href="${touchIcon}">`;
 const head = `<title>CoursePack</title>
+${icons}
 <meta name="description" content="CoursePack turns the best educational content on YouTube into structured learning paths.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
