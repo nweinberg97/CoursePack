@@ -52,7 +52,9 @@ const pub = (f) => readFile(path.join(root, 'public', f));
 const svgIcon = `data:image/svg+xml;base64,${(await pub('favicon.svg')).toString('base64')}`;
 const pngIcon = `data:image/png;base64,${(await pub('favicon-32.png')).toString('base64')}`;
 const touchIcon = `data:image/png;base64,${(await pub('apple-touch-icon.png')).toString('base64')}`;
-const icons = `<link rel="icon" type="image/svg+xml" href="${svgIcon}"><link rel="icon" type="image/png" sizes="32x32" href="${pngIcon}"><link rel="apple-touch-icon" href="${touchIcon}">`;
+const icons = `<link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">`;
+// Inline copies for the fragment build, which has no neighbouring files.
+const inlineIcons = `<link rel="icon" type="image/svg+xml" href="${svgIcon}"><link rel="icon" type="image/png" sizes="32x32" href="${pngIcon}"><link rel="apple-touch-icon" href="${touchIcon}">`;
 const head = `<title>CoursePack</title>
 ${icons}
 <meta name="description" content="CoursePack turns the best educational content on YouTube into structured learning paths.">
@@ -61,11 +63,13 @@ ${icons}
 <style>${css}</style>`;
 const body = `<div id="root"></div><script>${jsText.replace(/<\/script/g, '<\\/script')}</script>`;
 await mkdir(path.join(root, 'dist-single'), { recursive: true });
-await writeFile(path.join(root, 'dist-single/index.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">${head}</head><body>${body}</body></html>`);
+await writeFile(path.join(root, 'dist-single/index.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">${head.replace(icons, inlineIcons)}</head><body>${body}</body></html>`);
 // GitHub Pages copy (Settings → Pages → Deploy from branch → main /docs).
 await mkdir(path.join(root, 'docs'), { recursive: true });
 await writeFile(path.join(root, 'docs/index.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">${head}</head><body>${body}</body></html>`);
 await writeFile(path.join(root, 'docs/.nojekyll'), '');
+// Also ship the icon files next to the page so they're visible in docs/.
+for (const f of ['favicon.svg', 'favicon-32.png', 'apple-touch-icon.png']) await writeFile(path.join(root, 'docs', f), await pub(f));
 // Fragment form for hosts that supply their own document skeleton.
-await writeFile(path.join(root, 'dist-single/fragment.html'), `${head}\n${body}`);
+await writeFile(path.join(root, 'dist-single/fragment.html'), `${head.replace(icons, inlineIcons)}\n${body}`);
 console.log(`JS ${(jsText.length / 1024).toFixed(0)}KB · CSS ${(css.length / 1024).toFixed(0)}KB`);
