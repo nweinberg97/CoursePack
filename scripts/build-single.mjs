@@ -56,6 +56,10 @@ const head = `<title>CoursePack</title>
 const body = `<div id="root"></div><script>${jsText.replace(/<\/script/g, '<\\/script')}</script>`;
 await mkdir(path.join(root, 'dist-single'), { recursive: true });
 await writeFile(path.join(root, 'dist-single/index.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">${head}</head><body>${body}</body></html>`);
+// GitHub Pages copy (Settings → Pages → Deploy from branch → main /docs).
+await mkdir(path.join(root, 'docs'), { recursive: true });
+await writeFile(path.join(root, 'docs/index.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">${head}</head><body>${body}</body></html>`);
+await writeFile(path.join(root, 'docs/.nojekyll'), '');
 // Fragment form for hosts that supply their own document skeleton.
 await writeFile(path.join(root, 'dist-single/fragment.html'), `${head}\n${body}`);
 console.log(`JS ${(jsText.length / 1024).toFixed(0)}KB · CSS ${(css.length / 1024).toFixed(0)}KB`);

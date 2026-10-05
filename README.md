@@ -6,6 +6,8 @@ YouTube already has the explanations. What it doesn't have is structure: which v
 
 > YouTube gives you content. CoursePack gives you a validated path to mastery.
 
+**Live demo:** https://nweinberg97.github.io/CoursePack/
+
 This repository is a working product prototype (React, TypeScript, Tailwind). All creators, videos and metrics are fictional sample data designed to exercise the ranking model.
 
 ---
@@ -101,7 +103,7 @@ pages/       Landing, Dashboard, Explore, Build, CourseOverview, Learn, StudyKit
 npm install
 npm run dev            # http://localhost:5173
 npm run build          # static build in dist/
-npm run build:single   # one self-contained HTML file in dist-single/
+npm run build:single   # self-contained HTML in dist-single/ and docs/ (GitHub Pages)
 ```
 
 ## What's simulated
