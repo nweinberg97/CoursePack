@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>CoursePack</title>
+    <script>
+      // On GitHub Pages there is no build step, so this source file can't run.
+      // Send visitors to the prebuilt app in docs/ (keeps the #route).
+      if (location.hostname.endsWith('github.io')) location.replace('docs/' + location.hash);
+    </script>
     <meta name="description" content="CoursePack turns the best educational content on YouTube into structured learning paths, with AI tutoring, practice, and progress built in." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
