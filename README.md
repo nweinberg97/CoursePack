@@ -8,8 +8,8 @@ YouTube already has the explanations. What it doesn't have is structure: which v
 
 **Live demo:** https://nweinberg97.github.io/CoursePack/
 
-**Collab is an independent concept prototype built for exploration and fun. It is not affiliated with, sponsored by, or endorsed by YouTube, Google LLC, or any of their affiliates. YouTube is a trademark of Google LLC. All creators, videos and metrics shown are fictional sample data created to demonstrate the ranking model.
-**---
+Collab is an independent concept prototype built for exploration and fun. It is not affiliated with, sponsored by, or endorsed by YouTube, Google LLC, or any of their affiliates. YouTube is a trademark of Google LLC. All creators, videos and metrics shown are fictional sample data created to demonstrate the ranking model.
+---
 
 ## The two moments it's built around
 
